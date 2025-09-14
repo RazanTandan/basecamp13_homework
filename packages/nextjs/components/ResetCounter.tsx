@@ -3,11 +3,10 @@
 import { useScaffoldMultiWriteContract, createContractCall } from '~~/hooks/scaffold-stark/useScaffoldMultiWriteContract';
 import { useDeployedContractInfo } from '~~/hooks/scaffold-stark/useDeployedContractInfo';
 import useScaffoldStrkBalance from '~~/hooks/scaffold-stark/useScaffoldStrkBalance';
-// import { CONTRACT_NAME } from '~~/utils/constants';
 import { uint256 } from 'starknet';
 
 const DECIMALS = 18n;
-const PAYMENT_TOKENS = 1n; // single source of truth for cost in STRK units
+const PAYMENT_TOKENS = 1n; 
 const PAYMENT_AMOUNT = uint256.bnToUint256(PAYMENT_TOKENS * 10n ** DECIMALS);
 const CONTRACT_NAME = "CounterContract";
 

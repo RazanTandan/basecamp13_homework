@@ -1,7 +1,5 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { ConnectedAddress } from "~~/components/ConnectedAddress";
+
 import { CounterValue } from "~~/components/CounterValue";
 import { IncreaseCounterButton } from "~~/components/IncreaseCounter";
 import { DecreaseCounterButton } from "~~/components/DecreaseCounter";
@@ -23,16 +21,14 @@ const Home = () => {
     contractName: "CounterContract",
     functionName: "owner",
   });
+
   const ownerAddressStr = (ownerAddress) ? ownerAddress.toString() : "";
 
   const { address: connectedAddress } = useAccount();
   const connectedAddressStr = connectedAddress ?? "";
 
-
-
   return (
     <div className="flex items-center flex-col grow pt-10">
-      {/* <ConnectedAddress /> */}
       <div className="text-lg"> <CounterValue />  </div>
       <div className="pt-2"> <IncreaseCounterButton /> <DecreaseCounterButton /> <ResetCounterButton counter= {counter} connectedAddress = {connectedAddressStr} ownerAddress = {ownerAddressStr} /></div>
       <div className="pt-2"><SetCounter connectedAddress={connectedAddressStr} ownerAddress={ownerAddressStr} /></div>
