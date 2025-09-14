@@ -14,6 +14,7 @@ pub mod CounterContract {
     use starknet::{ContractAddress, get_caller_address, get_contract_address};     
     use openzeppelin_access::ownable::OwnableComponent;
     use openzeppelin_token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use contracts::utils::strk_address;
     
     component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
     
@@ -24,14 +25,14 @@ pub mod CounterContract {
 
     #[event]
     #[derive(Drop, starknet::Event)]
-    enum Event { 
+    pub enum Event { 
         CounterChanged: CounterChanged,
         #[flat]
         OwnableEvent: OwnableComponent::Event,
     }
 
     #[derive(Drop, starknet::Event)]
-    struct CounterChanged { 
+    pub struct CounterChanged { 
         #[key]
         pub caller: ContractAddress, 
         pub old_value: u32, 
@@ -40,7 +41,7 @@ pub mod CounterContract {
     }
 
     #[derive(Drop, Copy, Serde)]
-    enum ChangedReason { 
+    pub enum ChangedReason { 
         Increase, 
         Decrease, 
         Reset, 
@@ -119,7 +120,7 @@ pub mod CounterContract {
 
         fn reset_counter(ref self: ContractState) { 
             let payment_amount: u256 = 1000000000000000000; // 18 zeros for 1 STRK 
-            let strk_token: ContractAddress = 0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d.try_into().unwrap();
+            let strk_token: ContractAddress = strk_address(); 
 
             // check for enough balance
             let caller = get_caller_address(); 
